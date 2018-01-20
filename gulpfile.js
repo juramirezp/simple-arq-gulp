@@ -9,6 +9,7 @@ const cmq = require('crlab-gulp-combine-media-queries');
 const babel = require('gulp-babel');
 const pug = require('gulp-pug2');
 const htmlmin = require('gulp-html-minifier2');
+const browserSync = require('browser-sync').create();
 
 gulp.task('css', ()=>
     gulp.src('./src/scss/**/*.styl')
@@ -18,6 +19,7 @@ gulp.task('css', ()=>
         }))
         .pipe(minifyCSS())
         .pipe(gulp.dest('./dist/css/'))
+        .pipe(browserSync.stream())
 );
 
 gulp.task('js', ()=> 
@@ -27,12 +29,14 @@ gulp.task('js', ()=>
         }))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js/'))
+        .pipe(browserSync.stream())
 );
 
 gulp.task('img', () =>
     gulp.src(['./src/img/*.*'])
         .pipe(imagemin('foEXuNwCpuuRiRctIS3O8uSbiLLa1cby'))
         .pipe(gulp.dest('./dist/img/'))
+        .pipe(browserSync.stream())
 );
 
 gulp.task('pug', () =>  
@@ -40,9 +44,20 @@ gulp.task('pug', () =>
        .pipe(pug({ yourTemplate: 'Locals' }))
        .pipe(htmlmin({collapseWhitespace: true}))
        .pipe(gulp.dest('./dist/'))
+       .pipe(browserSync.stream())
 );
 
 gulp.task('watch', function() {
+    gulp.watch('./src/scss/**/*.styl', ['css']);
+    gulp.watch('./src/js/*.js', ['js']);
+    gulp.watch('./src/pug/includes/*.pug', ['pug']);
+    gulp.watch('./src/pug/*.pug', ['pug']);
+});
+
+gulp.task('default', function() {
+    browserSync.init({
+        server: './dist/'
+    });
     gulp.watch('./src/scss/**/*.styl', ['css']);
     gulp.watch('./src/js/*.js', ['js']);
     gulp.watch('./src/pug/includes/*.pug', ['pug']);
