@@ -26,6 +26,7 @@
     "gulp-autoprefixer": "^4.1.0",
     "gulp-sass": "^3.1.0",
     "gulp-stylus": "^2.7.0",
+    "gulp-tinypng": "^1.0.2",
     "gulp-uglify": "^3.0.0"
   }
 }

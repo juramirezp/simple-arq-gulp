@@ -3,6 +3,7 @@ const gulp = require('gulp');
 const gulpStylus = require('gulp-stylus');
 const gulpAutoprefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
+const imagemin = require('gulp-tinypng');
 
 gulp.task('css', ()=>
     gulp.src('./src/scss/**/*.styl')
@@ -10,8 +11,14 @@ gulp.task('css', ()=>
         .pipe(gulp.dest('./dist/css/'))
 );
 
-gulp.task('js', function() {
-    return gulp.src('./src/js/*.js')
+gulp.task('js', ()=> 
+    gulp.src('./src/js/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js/'))
-});
+);
+
+gulp.task('img', () =>
+    gulp.src(['./src/img/*.*'])
+        .pipe(imagemin('foEXuNwCpuuRiRctIS3O8uSbiLLa1cby'))
+        .pipe(gulp.dest('./dist/img/'))
+);
