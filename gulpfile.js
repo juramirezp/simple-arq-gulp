@@ -6,17 +6,23 @@ const uglify = require('gulp-uglify');
 const imagemin = require('gulp-tinypng');
 const minifyCSS = require('gulp-minify-css');
 const cmq = require('crlab-gulp-combine-media-queries');
+const babel = require('gulp-babel');
 
 gulp.task('css', ()=>
     gulp.src('./src/scss/**/*.styl')
         .pipe(gulpStylus())
-        .pipe(cmq({log: true}))
+        .pipe(cmq({
+            log: true
+        }))
         .pipe(minifyCSS())
         .pipe(gulp.dest('./dist/css/'))
 );
 
 gulp.task('js', ()=> 
     gulp.src('./src/js/*.js')
+        .pipe(babel({
+            presets: ['env']
+        }))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js/'))
 );
