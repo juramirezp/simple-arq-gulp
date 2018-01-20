@@ -7,6 +7,8 @@ const imagemin = require('gulp-tinypng');
 const minifyCSS = require('gulp-minify-css');
 const cmq = require('crlab-gulp-combine-media-queries');
 const babel = require('gulp-babel');
+const pug = require('gulp-pug2');
+const htmlmin = require('gulp-html-minifier2');
 
 gulp.task('css', ()=>
     gulp.src('./src/scss/**/*.styl')
@@ -33,7 +35,16 @@ gulp.task('img', () =>
         .pipe(gulp.dest('./dist/img/'))
 );
 
+gulp.task('pug', () =>  
+    gulp.src('./src/pug/*.pug')
+       .pipe(pug({ yourTemplate: 'Locals' }))
+       .pipe(htmlmin({collapseWhitespace: true}))
+       .pipe(gulp.dest('./dist/'))
+);
+
 gulp.task('watch', function() {
     gulp.watch('./src/scss/**/*.styl', ['css']);
     gulp.watch('./src/js/*.js', ['js']);
+    gulp.watch('./src/pug/includes/*.pug', ['pug']);
+    gulp.watch('./src/pug/*.pug', ['pug']);
 });
