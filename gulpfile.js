@@ -24,3 +24,8 @@ gulp.task('img', () =>
         .pipe(imagemin('foEXuNwCpuuRiRctIS3O8uSbiLLa1cby'))
         .pipe(gulp.dest('./dist/img/'))
 );
+
+gulp.task('watch', function() {
+    gulp.watch('./src/scss/**/*.styl', ['css']);
+    gulp.watch('./src/js/*.js', ['js']);
+});
