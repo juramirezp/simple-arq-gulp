@@ -4,10 +4,12 @@ const gulpStylus = require('gulp-stylus');
 const gulpAutoprefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-tinypng');
+var minifyCSS = require('gulp-minify-css');
 
 gulp.task('css', ()=>
     gulp.src('./src/scss/**/*.styl')
         .pipe(gulpStylus())
+        .pipe(minifyCSS())
         .pipe(gulp.dest('./dist/css/'))
 );
 
