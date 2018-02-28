@@ -10,6 +10,7 @@ const babel = require('gulp-babel');
 const pug = require('gulp-pug2');
 const htmlmin = require('gulp-html-minifier2');
 const browserSync = require('browser-sync').create();
+const webDependencies = require('gulp-web-dependencies');
 
 gulp.task('css', ()=>
     gulp.src('./src/scss/**/*.styl')
@@ -47,11 +48,23 @@ gulp.task('pug', () =>
        .pipe(browserSync.stream())
 );
 
+const path_dest = './dist';
+ 
+gulp.task('dependencies', function() {
+    return gulp.src('./dist/index.html')
+        .pipe(webDependencies({
+            dest: path_dest,
+            prefix: '/vendor',
+            flat: true
+        }))
+        .pipe(gulp.dest(path_dest));
+});
+
 gulp.task('watch', function() {
     gulp.watch('./src/scss/**/*.styl', ['css']);
     gulp.watch('./src/js/*.js', ['js']);
     gulp.watch('./src/pug/includes/*.pug', ['pug']);
-    gulp.watch('./src/pug/*.pug', ['pug']);
+    gulp.watch('./src/pug/*.pug', ['pug', 'dependencies']);
 });
 
 gulp.task('default', function() {
@@ -61,5 +74,5 @@ gulp.task('default', function() {
     gulp.watch('./src/scss/**/*.styl', ['css']);
     gulp.watch('./src/js/*.js', ['js']);
     gulp.watch('./src/pug/includes/*.pug', ['pug']);
-    gulp.watch('./src/pug/*.pug', ['pug']);
+    gulp.watch('./src/pug/*.pug', ['pug', 'dependencies']);
 });

@@ -1,11 +1,10 @@
 doctype html 
 html(lang='es')
     head
-       meta(charset='utf-8')
-       title Título de página
-       link(rel='stylesheet', type='text/css', media='screen', href='css/main.css')
-       script(src='libjs/jquery.min.js')
-       script(src='libjs/archivo.js') 
+        meta(charset='utf-8')
+        title Título de página
+        link(rel='stylesheet', type='text/css', media='screen', href='css/main.css')
+        link(src='../bower_components/bootstrap/dist/css/bootstrap.min.css')
     body
         ul
             li uno
@@ -13,3 +12,4 @@ html(lang='es')
             li tres
             li for
         include includes/footer.pug
+        script(src='../bower_components/jquery/dist/jquery.min.js')

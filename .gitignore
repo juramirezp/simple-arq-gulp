@@ -3,3 +3,4 @@ package-lock.json
 dist/*
 src/img/*
 .gulp
+bower_components/*
